@@ -7,7 +7,7 @@
 #include <algorithm>
 
 int main(int argc, char** argv) {
-    const int NUM_SQUIRRELS = 100;      // количество белок (процессов)
+    const int NUM_SQUIRRELS = 4;      // количество белок (процессов)
     const int TOTAL_NUTS    = 1000298;  // количество орехов в мешке
 
     MPI_Init(&argc, &argv);
@@ -118,3 +118,4 @@ int main(int argc, char** argv) {
     MPI_Finalize();
     return 0;
 }
+
