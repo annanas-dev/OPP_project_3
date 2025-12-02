@@ -25,7 +25,7 @@ jobs:
 
       - name: Run MPI program (4 processes)
         run: |
-          mpirun -np 4 ./squirrels || true
+          mpirun -np 100 ./squirrels || true
           
       - name: Build tests
         run: |
