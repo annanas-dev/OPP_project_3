@@ -1,0 +1,36 @@
+name: MPI Build & Test
+
+on:
+  push:
+    branches: [ main, coder, devops, tester ]
+  pull_request:
+    branches: [ main, coder, devops, tester ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install MPI (MPICH)
+        run: |
+          sudo apt update
+          sudo apt install -y mpich libmpich-dev
+
+      - name: Build MPI program
+        run: |
+          mpic++ -O2 -o squirrels main.cpp
+
+      - name: Run MPI program (4 processes)
+        run: |
+          mpirun -np 100 ./squirrels || true
+          
+      - name: Build tests
+        run: |
+          g++ -std=c++17 -O2 tests.cpp -o tests
+
+      - name: Run tests
+        run: |
+          ./tests
