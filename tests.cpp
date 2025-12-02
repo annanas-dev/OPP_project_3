@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cmath>
 
-static const int NUM_SQUIRRELS = 100; // кол-во белок
+static const int NUM_SQUIRRELS = 4; // кол-во белок
 static const long long TOTAL_NUTS = 1000298; // кол-во орехов
 
 // Команда запуска для MPI-программы mpirun c нашим бинарником
