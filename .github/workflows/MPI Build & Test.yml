@@ -26,3 +26,11 @@ jobs:
       - name: Run MPI program (4 processes)
         run: |
           mpirun -np 4 ./squirrels || true
+          
+      - name: Build tests
+        run: |
+          g++ -std=c++17 -O2 tests.cpp -o tests
+
+      - name: Run tests
+        run: |
+          ./tests
