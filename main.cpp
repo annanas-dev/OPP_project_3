@@ -60,4 +60,9 @@ MPI_Scatterv(
     0,
     MPI_COMM_WORLD
 );
+double local_sum = std::accumulate(local_nuts.begin(), local_nuts.end(), 0.0);
+double local_avg = (local_count > 0) ? local_sum / local_count : 0.0;
+
+std::vector<double> all_avgs(world_size);
+MPI_Allgather(&local_avg, 1, MPI_DOUBLE, all_avgs.data(), 1, MPI_DOUBLE, MPI_COMM_WORLD);
 
