@@ -66,3 +66,15 @@ double local_avg = (local_count > 0) ? local_sum / local_count : 0.0;
 std::vector<double> all_avgs(world_size);
 MPI_Allgather(&local_avg, 1, MPI_DOUBLE, all_avgs.data(), 1, MPI_DOUBLE, MPI_COMM_WORLD);
 
+int left  = (world_rank - 1 + world_size) % world_size;
+int right = (world_rank + 1) % world_size;
+double avg_from_left  = all_avgs[left];
+double avg_from_right = all_avgs[right];
+
+std::cout << std::fixed << std::setprecision(4);
+std::cout << "Белка " << world_rank
+          << ": орехов = " << local_count
+          << ", мой ср. вес = " << local_avg
+          << ", слева = " << avg_from_left
+          << ", справа = " << avg_from_right
+          << std::endl;
