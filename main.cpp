@@ -45,3 +45,19 @@ int main(int argc, char** argv) {
     MPI_Finalize();
     return 0;
 }
+int local_count = 0;
+MPI_Scatter(sendcounts.data(), 1, MPI_INT, &local_count, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+std::vector<double> local_nuts(local_count);
+MPI_Scatterv(
+    world_rank == 0 ? nuts.data() : nullptr,
+    world_rank == 0 ? sendcounts.data() : nullptr,
+    world_rank == 0 ? displs.data() : nullptr,
+    MPI_DOUBLE,
+    local_nuts.data(),
+    local_count,
+    MPI_DOUBLE,
+    0,
+    MPI_COMM_WORLD
+);
+
